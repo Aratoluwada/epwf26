@@ -53,12 +53,9 @@ section { padding: clamp(56px, 8vw, 104px) clamp(20px, 6vw, 88px); }
 
 .hero-art { position: relative; min-height: 480px; display: grid; place-items: center; }
 .art-blob { position: absolute; width: min(420px, 90%); aspect-ratio: 1; background: var(--pink); border: 3px solid var(--ink); border-radius: 46% 54% 42% 58% / 52% 44% 56% 48%; transform: rotate(8deg); }
-.mini-card { position: relative; z-index: 1; width: min(320px, 78%); aspect-ratio: .76; border: 3px solid var(--ink); border-radius: 28px; background: linear-gradient(150deg, #fff0f7 0%, #fff 40%, #ffe1ef 100%); box-shadow: 10px 10px 0 var(--ink); padding: 22px 20px; display: flex; flex-direction: column; align-items: center; transform: rotate(-3deg); }
-.mini-card-top { background: linear-gradient(120deg, var(--purple), var(--ink)); color: #fff; width: 100%; text-align: center; border-radius: 16px; padding: 16px 8px; font-family: Manrope, sans-serif; font-size: 23px; font-weight: 800; line-height: 1.1; letter-spacing: -.03em; }
-.mini-photo { margin-top: 16px; width: 56%; aspect-ratio: 1; border: 6px solid #fff; border-radius: 24px; background: #f3e3ec; display: grid; place-items: center; color: #b59aab; box-shadow: 0 0 0 2px var(--ink); }
-.mini-name { width: 84%; margin-top: 14px; padding: 9px 5px; text-align: center; border-radius: 10px; background: #fff; border: 2px solid var(--ink); font-size: 16px; font-weight: 800; }
-.mini-event { font-size: 10px; letter-spacing: .04em; font-weight: 800; text-align: center; margin-top: 16px; }
-.mini-theme { margin-top: 7px; background: var(--ink); color: var(--pink-soft); border-radius: 99px; padding: 8px 12px; font-family: Georgia, serif; font-size: 12px; font-weight: 700; }
+.hero-flyer { position: relative; z-index: 1; width: min(340px, 80%); height: auto; aspect-ratio: 874 / 1080; object-fit: cover; border: 3px solid var(--ink); border-radius: 22px; box-shadow: 10px 10px 0 var(--ink); transform: rotate(-3deg); background: #fff; }
+.hero-theme { font-family: Manrope, sans-serif; font-weight: 800; font-size: clamp(22px, 3vw, 34px); letter-spacing: -.03em; color: var(--berry); margin: -6px 0 18px; }
+.hero-theme span { color: var(--sky); }
 .spark { position: absolute; color: var(--sky); font-size: 38px; animation: float 4s ease-in-out infinite; }
 .spark-one { top: 36px; right: 6%; }
 .spark-two { bottom: 40px; left: 4%; font-size: 52px; color: var(--berry); animation-delay: -2s; }
@@ -229,10 +226,7 @@ main { overflow-x: clip; }
   .brand-text small { font-size: 9px; }
   .hero-actions .btn { width: 100%; }
   .hero-art { min-height: 340px; }
-  .mini-card { width: 230px; padding: 16px; box-shadow: 7px 7px 0 var(--ink); }
-  .mini-card-top { font-size: 20px; padding: 12px 6px; }
-  .mini-event { font-size: 8px; }
-  .count-box { box-shadow: 3px 3px 0 var(--ink); border-width: 2px; border-radius: 16px; }
+        .count-box { box-shadow: 3px 3px 0 var(--ink); border-width: 2px; border-radius: 16px; }
   .info-card, .form-panel, .result-panel { box-shadow: 4px 4px 0 var(--ink); }
   .result-actions { display: grid; grid-template-columns: 1fr; }
   .result-actions .btn { width: 100%; }
