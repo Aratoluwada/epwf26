@@ -324,7 +324,8 @@ function App() {
         <section className="hero">
           <div className="hero-copy">
             <span className="chip">Sat, 5 Dec 2026 · Abeokuta</span>
-            <h1>Made <span className="amp">for</span> More <span className="year">2026.</span></h1>
+            <h1>EPWF Conference <span className="year">2026</span></h1>
+            <p className="hero-theme">Made <span>for</span> More</p>
             <p className="hero-sub">The Annual Conference of the <strong>Effective Pastors’ Wives Forum</strong>. Make your personalized “I will be attending” card, share it, and invite someone to come with you.</p>
             <div className="hero-actions">
               <a className="btn btn-primary" href={REGISTER_URL} target="_blank" rel="noopener noreferrer">Register now <ArrowUpRight size={19} /></a>
@@ -332,15 +333,9 @@ function App() {
             </div>
             <div className="privacy-note"><span className="privacy-dot" /> Free to use. Your photo stays on your device.</div>
           </div>
-          <div className="hero-art" aria-label="Preview of an attendance card">
+          <div className="hero-art" aria-label="EPWF Annual Conference flyer">
             <div className="art-blob" />
-            <div className="mini-card">
-              <div className="mini-card-top">I WILL BE<br />ATTENDING!</div>
-              <div className="mini-photo"><Camera size={44} strokeWidth={1.4} /></div>
-              <div className="mini-name">YOUR NAME</div>
-              <div className="mini-event">ANNUAL CONFERENCE</div>
-              <div className="mini-theme">MADE FOR MORE</div>
-            </div>
+            <img className="hero-flyer" src="/assets/epwf-flyer.jpg" alt="Flyer for the EPWF Annual Conference, Made for More, Saturday 5th December 2026 at Rock Foundation Church, Abeokuta" width="874" height="1080" />
             <span className="spark spark-one">✦</span><span className="spark spark-two">✧</span>
           </div>
         </section>
