@@ -3,16 +3,16 @@ import Cropper from 'react-easy-crop';
 import { ArrowRight, ArrowUpRight, Calendar, Camera, Check, Clock, Download, ImagePlus, LoaderCircle, MapPin, Menu, MessageCircle, Plus, RotateCcw, Share2, Upload, X } from 'lucide-react';
 import './App.css';
 
-const TEMPLATE_URL = '/assets/attendance-template.svg';
+const TEMPLATE_URL = '/assets/attendance-template.jpg';
 const EMBLEM_URL = '/assets/epwf-emblem.png';
 const REGISTER_URL = 'https://forms.gle/viUSfNhFc9x1bsQaA';
 const SHARE_TITLE = 'Made for More · Annual Conference';
 // Set this to the live address once the site is hosted. While it is empty, the share message leaves out the "generate yours" line.
 const SITE_URL = '';
 const OUTPUT_WIDTH = 1080;
-const OUTPUT_HEIGHT = 1397;
-const PHOTO_FRAME = { x: 350, y: 540, width: 380, height: 360 };
-const NAME_FRAME = { x: 275, y: 915, width: 537, height: 77 };
+const OUTPUT_HEIGHT = 1335;
+const PHOTO_FRAME = { x: 292, y: 398, width: 481, height: 452 };
+const NAME_FRAME = { x: 166, y: 905, width: 760, height: 60 };
 // Saturday 5th December 2026, 9 AM West Africa Time (UTC+1).
 const EVENT_START = new Date('2026-12-05T09:00:00+01:00').getTime();
 // The page switches to a thank-you message after midnight that day.
@@ -28,7 +28,7 @@ const FAQ = [
   { q: 'How do I register for the conference?', a: 'Tap Register now on this page to open the registration form. Making your attendance card is separate and does not register you.' },
   { q: 'Is it free to use?', a: 'Yes. Creating and downloading your attendance design is completely free.' },
   { q: 'Does my photo get uploaded anywhere?', a: 'No. Your photo is processed in your browser only. It is never sent to a server or saved in a database.' },
-  { q: 'What do I get at the end?', a: 'A high-resolution PNG (1080 × 1397) with your photo and first name, ready for WhatsApp, Instagram or your gallery.' },
+  { q: 'What do I get at the end?', a: 'A high-resolution PNG (1080 × 1335) with your photo and name, ready for WhatsApp, Instagram or your gallery.' },
   { q: 'How do I share it?', a: 'Tap Share design to use your phone’s share sheet, or download the PNG and post it yourself. There is also a prewritten WhatsApp message to invite friends.' },
   { q: 'Can I change my photo after adding it?', a: 'Yes. Use Adjust to re-crop it, or Change to pick a different photo, then generate your design again.' },
 ];
@@ -66,12 +66,13 @@ async function renderDesign(photoUrl, firstName) {
   canvas.width = OUTPUT_WIDTH;
   canvas.height = OUTPUT_HEIGHT;
   const context = canvas.getContext('2d');
+  try { await document.fonts.load('700 46px "DM Sans"'); } catch { /* fall back to Arial */ }
   const background = await loadImage(TEMPLATE_URL);
   context.drawImage(background, 0, 0, OUTPUT_WIDTH, OUTPUT_HEIGHT);
 
   if (photoUrl) {
     const photo = await loadImage(photoUrl);
-    roundedImage(context, photo, PHOTO_FRAME.x, PHOTO_FRAME.y, PHOTO_FRAME.width, PHOTO_FRAME.height, 38);
+    roundedImage(context, photo, PHOTO_FRAME.x, PHOTO_FRAME.y, PHOTO_FRAME.width, PHOTO_FRAME.height, 50);
   }
 
   const name = firstName.trim();
@@ -80,13 +81,14 @@ async function renderDesign(photoUrl, firstName) {
     context.fillStyle = '#3a0f2a';
     context.textAlign = 'center';
     context.textBaseline = 'middle';
-    let fontSize = 43;
-    context.font = `800 ${fontSize}px Arial, sans-serif`;
-    while (context.measureText(name).width > NAME_FRAME.width - 38 && fontSize > 20) {
+    let fontSize = 46;
+    const setFont = () => { context.font = `700 ${fontSize}px "DM Sans", Arial, sans-serif`; };
+    setFont();
+    while (context.measureText(name).width > NAME_FRAME.width && fontSize > 20) {
       fontSize -= 1;
-      context.font = `800 ${fontSize}px Arial, sans-serif`;
+      setFont();
     }
-    context.fillText(name, NAME_FRAME.x + NAME_FRAME.width / 2, NAME_FRAME.y + NAME_FRAME.height / 2 + 1, NAME_FRAME.width - 36);
+    context.fillText(name, NAME_FRAME.x + NAME_FRAME.width / 2, NAME_FRAME.y + NAME_FRAME.height / 2 + 1, NAME_FRAME.width);
     context.restore();
   }
   return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('Could not create the image. Please try again.')), 'image/png'));
@@ -229,7 +231,7 @@ function App() {
     setError('');
     setSuccess('');
     if (!firstName.trim()) {
-      setError('Enter your first name to personalize your design.');
+      setError('Enter your name to personalize your design.');
       return;
     }
     if (!croppedPhoto) {
@@ -380,13 +382,13 @@ function App() {
           <div className="section-head">
             <span className="eyebrow">Get your DP</span>
             <h2 id="builder-title">Make it yours.</h2>
-            <p>Just your first name and a photo. That’s all you need.</p>
+            <p>Just your name and a photo. That’s all you need.</p>
           </div>
           <div className="builder-grid">
             <div className="form-panel">
-              <label className="field-label" htmlFor="first-name">Your first name</label>
-              <input id="first-name" className="name-input" value={firstName} onChange={(event) => { setFirstName(event.target.value.slice(0, 32)); setDesignBlob(null); }} placeholder="e.g. Funmilayo" maxLength={32} autoComplete="given-name" />
-              <div className="field-meta"><span>This is how your name will appear on the design.</span><span>{firstName.length}/32</span></div>
+              <label className="field-label" htmlFor="first-name">Your name</label>
+              <input id="first-name" className="name-input" value={firstName} onChange={(event) => { setFirstName(event.target.value.slice(0, 40)); setDesignBlob(null); }} placeholder="e.g. Pst. Mrs Funmilayo Adeyemi" maxLength={40} autoComplete="name" />
+              <div className="field-meta"><span>Type it as you want it to appear, with or without a title (Pst., Rev., Mrs, etc.).</span><span>{firstName.length}/40</span></div>
 
               <div className="field-label photo-label">Your photograph</div>
               {croppedPhoto ? <div className="uploaded-row"><img src={croppedPhoto} alt="Your selected portrait" /><div className="uploaded-copy"><strong>Photo ready</strong><span>Looks good? You can still adjust it.</span></div><button type="button" className="text-button" onClick={() => { setSourcePhoto(croppedPhoto); setCrop({ x: 0, y: 0 }); setZoom(1); setCroppedAreaPixels(null); }}>Adjust</button><label className="text-button change-photo">Change<input type="file" accept="image/*" onChange={handleFile} /></label></div> : <label className="upload-box"><input type="file" accept="image/*" onChange={handleFile} /><span className="upload-icon"><ImagePlus size={25} /></span><strong>Upload a photo</strong><span>JPG, PNG or WebP · Up to 15 MB</span><span className="upload-action"><Upload size={16} /> Choose photo</span></label>}
@@ -402,7 +404,7 @@ function App() {
               <div className="poster-preview">
                 <img className="poster-background" src={TEMPLATE_URL} alt="Made for More Annual Conference attendance design background" />
                 {photoPreview && <img className="poster-person" src={photoPreview} alt="Your photo in the attendance card" />}
-                <div className={`poster-name ${firstName.trim().length > 17 ? 'long-name' : ''}`}>{firstName.trim() || 'YOUR NAME'}</div>
+                <div className={`poster-name ${firstName.trim().length > 30 ? 'long-name' : ''}`}>{firstName.trim() || 'Pst. Mrs First Name Last Name'}</div>
               </div>
               <p className="preview-caption"><Check size={15} /> Your photo and name are added to the design in your browser.</p>
             </div>

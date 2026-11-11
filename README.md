@@ -1,6 +1,6 @@
 # Made for More: Attendance Card Generator
 
-A mobile-first React + Vite app for the Effective Pastors' Wives Forum Annual Conference, "Made for More", on Saturday 5th December 2026 in Abeokuta. Visitors enter their first name, upload a photo, drag/zoom to position it, generate a personalized attendance PNG, and share the image or a prewritten invite message.
+A mobile-first React + Vite app for the Effective Pastors' Wives Forum Annual Conference, "Made for More", on Saturday 5th December 2026 in Abeokuta. Visitors enter their name (with or without a title), upload a photo, drag/zoom to position it, generate a personalized attendance PNG, and share the image or a prewritten invite message.
 
 ## Run locally
 
@@ -28,7 +28,7 @@ All of these are constants at the top of `src/App.jsx`:
 
 ## Template artwork
 
-The card template is a vector SVG at `public/assets/attendance-template.svg` in the event's pink and maroon palette, with the forum logo embedded. The photo and name positions are set by `PHOTO_FRAME` and `NAME_FRAME` in `src/App.jsx` and by the percentage positions on `.poster-person` and `.poster-name` in `src/App.css`. If you replace the template, keep those aligned so the live preview and the exported PNG line up.
+The card template is a JPG at `public/assets/attendance-template.jpg`, designed by the organisers. The grey box and the name line are left empty for the app to fill. The photo and name positions are set by `PHOTO_FRAME` and `NAME_FRAME` in `src/App.jsx` and by the percentage positions on `.poster-person` and `.poster-name` in `src/App.css`. If you replace the template, keep those aligned so the live preview and the exported PNG line up.
 
 The logo files in `public/assets/` were cropped from the event flyer. Swap in the original logo files for a sharper result.
 
